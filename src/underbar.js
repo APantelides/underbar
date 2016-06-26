@@ -82,7 +82,7 @@
     var filtered = [];
     _.each(collection, function(element) {
       if(test(element)){
-        filtered.push(element)
+        filtered.push(element);
       }
     })
     return filtered;
@@ -99,6 +99,13 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var duplicateFree = [];
+    _.each(array, function(element) {
+      if(_.indexOf(duplicateFree, element) === -1){
+        duplicateFree.push(element);
+      }
+    })
+    return duplicateFree;
   };
 
 
