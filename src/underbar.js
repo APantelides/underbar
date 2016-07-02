@@ -302,6 +302,16 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var memorized = {}
+    return function () {
+      var memo = Array.prototype.slice.apply(arguments, arguments)
+      if(memorized[memo]){
+        return memorized[memo];
+      } else {
+        return memorized[memo] = func.apply(null, arguments);
+      }
+    }
+  
   };
 
   // Delays a function for the given number of milliseconds, and then calls
