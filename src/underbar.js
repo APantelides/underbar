@@ -304,11 +304,11 @@
   _.memoize = function(func) {
     var memorized = {}
     return function () {
-      var memo = Array.prototype.slice.apply(arguments, arguments)
+      var memo = JSON.stringify(arguments)
       if(memorized[memo]){
         return memorized[memo];
       } else {
-        return memorized[memo] = func.apply(null, arguments);
+        return memorized[memo] = func.apply(this, arguments);
       }
     }
   
@@ -321,6 +321,11 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.apply(arguments)
+    args=args.slice(2)
+    return setTimeout(function(){
+      func.apply(this, args)
+    }, wait)
   };
 
 
